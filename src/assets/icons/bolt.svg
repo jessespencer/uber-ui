@@ -1,0 +1,21 @@
+<svg width="25" height="31" viewBox="0 0 25 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g filter="url(#filter0_di_134_382)">
+<path d="M18.1911 3C18.5627 3 18.8045 3.39116 18.6383 3.72361L16.0001 9H18.5253C18.9505 9 19.1816 9.49688 18.9078 9.82207L7.99535 22.7806C7.66632 23.1713 7.03222 22.8754 7.1204 22.3722L8.50007 14.5H5.64724C5.31984 14.5 5.08079 14.1906 5.16343 13.8738L7.90256 3.37379C7.95999 3.15362 8.15883 3 8.38637 3H18.1911Z" fill="white"/>
+</g>
+<defs>
+<filter id="filter0_di_134_382" x="0.146973" y="1" width="23.8793" height="29.9604" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="3"/>
+<feGaussianBlur stdDeviation="2.5"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.4 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_134_382"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_134_382" result="shape"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="1"/>
+<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+<feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.6 0"/>
+<feBlend mode="normal" in2="shape" result="effect2_innerShadow_134_382"/>
+</filter>
+</defs>
+</svg>

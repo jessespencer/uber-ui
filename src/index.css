@@ -1,0 +1,41 @@
+@import "tailwindcss";
+
+@theme {
+  --color-accent: #96cc0c;
+  --color-accent-glow: rgba(146, 211, 0, 0.8);
+  --color-accent-focus: #e0f97d;
+  --color-accent-active: #eeffab;
+  --color-surface-dark: #000000;
+  --color-surface-raised-from: #414344;
+  --color-surface-raised-to: #2b2d2e;
+  --color-surface-hover-from: #65696d;
+  --color-surface-hover-to: #3a3c3b;
+  --color-surface-pressed-from: #2c2e2f;
+  --color-surface-pressed-to: #404142;
+  --color-border-dark: #12161a;
+  --color-border-dark-alt: #1d262d;
+  --color-text-primary: #f4f4f4;
+  --color-text-secondary: #cbcbcb;
+  --color-divider-shadow: #2a2b2d;
+  --color-divider-highlight: #626363;
+
+  --font-family-sans: 'Roboto', system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-family-sans);
+  background-color: #222222;
+  color: var(--color-text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Remove default focus outlines — components handle their own green glow */
+:focus-visible {
+  outline: none;
+}
