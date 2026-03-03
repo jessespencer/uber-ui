@@ -1,0 +1,11 @@
+{
+  "name": "Uber Dark UI Kit",
+  "short_name": "Uber UI",
+  "icons": [
+    { "src": "/uber-ui/web-app-manifest-192x192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/uber-ui/web-app-manifest-512x512.png", "sizes": "512x512", "type": "image/png" }
+  ],
+  "theme_color": "#222222",
+  "background_color": "#222222",
+  "display": "standalone"
+}
