@@ -25,18 +25,18 @@ export function Checkbox({ checked, onChange, label }: CheckboxProps) {
       >
         {/* Outline */}
         <div className="absolute inset-0 rounded-[4px] border border-border-dark" />
-        {/* BG — gradient surface (matches pressed button style) */}
+        {/* BG — gradient surface */}
         <div
-          className={`absolute inset-0 rounded-[4px] transition-all duration-100 bg-gradient-to-b shadow-[0_1px_0_rgba(255,255,255,0.3)] border border-border-dark-alt ${
+          className={`absolute inset-0 rounded-[4px] transition-all duration-100 bg-gradient-to-b shadow-[var(--shadow-pressed-outer)] border border-border-dark-alt ${
             hovered && !pressed
-              ? 'from-[#363839] to-[#4a4b4c]'
+              ? 'from-[var(--checkbox-hover-from)] to-[var(--checkbox-hover-to)]'
               : 'from-surface-pressed-from to-surface-pressed-to'
           }`}
         >
-          <div className="absolute inset-0 rounded-[inherit] shadow-[inset_0_2px_3px_rgba(0,0,0,0.5)]" />
+          <div className="absolute inset-0 rounded-[inherit] shadow-[var(--shadow-inner-pressed)]" />
         </div>
         {/* Focus glow ring */}
-        <div className="absolute inset-0 rounded-[4px] hidden group-focus-visible:block border-2 border-accent-focus shadow-[0_0_4px_#92d300]" />
+        <div className="absolute inset-0 rounded-[4px] hidden group-focus-visible:block border-2 border-accent-focus shadow-[var(--shadow-focus-ring)]" />
         {/* Checkmark icon */}
         {checked && (
           <div className={`absolute inset-0 flex items-center justify-center pointer-events-none ${iconState.pressed}`}>
@@ -45,7 +45,7 @@ export function Checkbox({ checked, onChange, label }: CheckboxProps) {
         )}
       </button>
       {label && (
-        <span className="font-normal text-[16px] text-text-primary [text-shadow:0_-1px_0_rgba(0,0,0,0.7)]">
+        <span className="font-normal text-[16px] text-text-primary [text-shadow:var(--text-shadow-primary)]">
           {label}
         </span>
       )}

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import bgImage from './images/bg.jpg'
+import { useTheme } from './context/ThemeContext'
 import { Button } from './components/Button'
 import { Dropdown } from './components/Dropdown'
 import { SearchInput } from './components/SearchInput'
@@ -19,6 +20,7 @@ const dropdownOptions = [
 ]
 
 export default function App() {
+  const { theme, toggleTheme } = useTheme()
   const [pressed, setPressed] = useState(true)
   const [iconPressed, setIconPressed] = useState(true)
   const [dropdownValue, setDropdownValue] = useState<string | undefined>()
@@ -33,11 +35,28 @@ export default function App() {
   const [rocker1, setRocker1] = useState(true)
   const [rocker2, setRocker2] = useState(false)
 
+  const isDark = theme === 'dark'
+
   return (
     <div
-      className="min-h-screen bg-center bg-no-repeat bg-cover bg-fixed flex items-center justify-center"
-      style={{ backgroundImage: `url(${bgImage})` }}
+      className="min-h-screen flex items-center justify-center"
+      style={isDark
+        ? { backgroundImage: `url(${bgImage})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundAttachment: 'fixed' }
+        : { backgroundColor: 'var(--color-bg)' }
+      }
     >
+      {/* Theme toggle — fixed top-right */}
+      <div className="fixed top-4 right-4 z-50">
+        <SegmentedControl
+          options={[
+            { value: 'light', label: 'Light' },
+            { value: 'dark', label: 'Dark' },
+          ]}
+          value={theme}
+          onChange={(v) => toggleTheme(v as 'light' | 'dark')}
+        />
+      </div>
+
       <div className="flex flex-col gap-[32px] p-8">
 
         {/* Row 1: Icon buttons + text buttons */}

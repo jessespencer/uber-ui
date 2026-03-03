@@ -1,4 +1,5 @@
 import { useRef, useCallback, useEffect, useState } from 'react'
+import { gradientStroke } from './theme-utils'
 
 interface SliderProps {
   value: number
@@ -77,16 +78,20 @@ export function Slider({
       {/* Track border */}
       <div className="absolute left-0 right-0 top-[8px] h-[16px] rounded-[100px] border border-border-dark" />
       {/* Track background — pressed surface with inset depth */}
-      <div className="absolute left-0 right-0 top-[8px] h-[16px] rounded-[100px] bg-gradient-to-b from-surface-pressed-from to-surface-pressed-to shadow-[0_1px_0_rgba(255,255,255,0.3)]">
-        <div className="absolute inset-0 rounded-[inherit] shadow-[inset_0_2px_3px_rgba(0,0,0,0.5)]" />
+      <div className="absolute left-0 right-0 top-[8px] h-[16px] rounded-[100px] bg-gradient-to-b from-surface-pressed-from to-surface-pressed-to shadow-[var(--shadow-pressed-outer)]">
+        <div className="absolute inset-0 rounded-[inherit] shadow-[var(--shadow-inner-pressed)]" />
       </div>
 
       {/* Active fill */}
       <div
-        className="absolute left-0 top-[8px] h-[16px] rounded-[100px] bg-accent shadow-[0_0_8px_var(--color-accent-glow),0_2px_2px_rgba(0,0,0,0.3)]"
-        style={{ width: `${percent}%`, minWidth: 0 }}
+        className="absolute left-0 top-[8px] h-[16px] rounded-[100px] shadow-[0_0_8px_var(--color-accent-glow),0_2px_2px_rgba(0,0,0,0.3)]"
+        style={{
+          width: `${percent}%`,
+          minWidth: 0,
+          background: 'linear-gradient(to right, var(--accent-gradient-from), var(--accent-gradient-to))',
+        }}
       >
-        <div className="absolute inset-0 rounded-[inherit] shadow-[inset_0_3px_0_rgba(255,255,255,0.8)]" />
+        <div className="absolute inset-0 rounded-[inherit] shadow-[var(--slider-fill-highlight)]" />
       </div>
 
       {/* Handle — matches Switch knob */}
@@ -102,7 +107,7 @@ export function Slider({
         >
           <div className="absolute inset-0 rounded-full shadow-[inset_0_-2px_2px_rgba(0,0,0,0.2),inset_0_1px_1px_rgba(255,255,255,0.8)]" />
         </div>
-        <div className="absolute -inset-[2px] rounded-full shadow-[0_2px_4px_rgba(0,0,0,0.5)]" />
+        <div className="absolute -inset-[2px] rounded-full shadow-[var(--handle-shadow)]" />
 
         {/* Tooltip — shown while interacting */}
         {dragging && (
@@ -111,17 +116,12 @@ export function Slider({
               {/* Gradient stroke border */}
               <div
                 className="absolute -inset-px rounded-[5px] p-px pointer-events-none"
-                style={{
-                  background: 'linear-gradient(to bottom, #253039, #151B21)',
-                  mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
-                  maskComposite: 'exclude',
-                  WebkitMaskComposite: 'xor',
-                }}
+                style={gradientStroke}
               />
               {/* Surface */}
-              <div className="rounded-[4px] bg-gradient-to-b from-surface-raised-from to-surface-raised-to shadow-[0_3px_5px_rgba(0,0,0,0.4)] px-[8px] py-[4px]">
-                <div className="absolute inset-0 rounded-[inherit] pointer-events-none shadow-[inset_0_1px_0_rgba(255,255,255,0.3)]" />
-                <span className="relative text-[13px] font-normal text-text-primary [text-shadow:0_-1px_0_rgba(0,0,0,0.7)] whitespace-nowrap">
+              <div className="rounded-[4px] bg-gradient-to-b from-surface-raised-from to-surface-raised-to shadow-[var(--shadow-raised)] px-[8px] py-[4px]">
+                <div className="absolute inset-0 rounded-[inherit] pointer-events-none shadow-[var(--shadow-inner-highlight)]" />
+                <span className="relative text-[13px] font-normal text-text-primary [text-shadow:var(--text-shadow-primary)] whitespace-nowrap">
                   {Math.round(percent)}%
                 </span>
               </div>

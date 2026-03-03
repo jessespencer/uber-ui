@@ -21,11 +21,19 @@ export function Tooltip({
   }
 
   const arrowPositionStyles = {
-    top: 'top-full left-1/2 -translate-x-1/2 border-t-[#414344] border-x-transparent border-b-transparent',
-    bottom: 'bottom-full left-1/2 -translate-x-1/2 border-b-[#414344] border-x-transparent border-t-transparent',
-    left: 'left-full top-1/2 -translate-y-1/2 border-l-[#414344] border-y-transparent border-r-transparent',
-    right: 'right-full top-1/2 -translate-y-1/2 border-r-[#414344] border-y-transparent border-l-transparent',
+    top: 'top-full left-1/2 -translate-x-1/2 border-x-transparent border-b-transparent',
+    bottom: 'bottom-full left-1/2 -translate-x-1/2 border-x-transparent border-t-transparent',
+    left: 'left-full top-1/2 -translate-y-1/2 border-y-transparent border-r-transparent',
+    right: 'right-full top-1/2 -translate-y-1/2 border-y-transparent border-l-transparent',
   }
+
+  // Arrow border direction that needs the surface color
+  const arrowColorProp = {
+    top: 'borderTopColor',
+    bottom: 'borderBottomColor',
+    left: 'borderLeftColor',
+    right: 'borderRightColor',
+  } as const
 
   return (
     <div
@@ -40,24 +48,23 @@ export function Tooltip({
         >
           <div className="relative">
             {/* Outline */}
-            <div className="absolute inset-0 rounded-[4px] border border-[#1d262d]" />
+            <div className="absolute inset-0 rounded-[4px] border border-border-dark-alt" />
             {/* BG — raised surface */}
             <div
-              className={[
-                'absolute inset-0 rounded-[4px]',
-                'bg-gradient-to-b from-[#414344] to-[#2b2d2e]',
-                'shadow-[0_3px_5px_rgba(0,0,0,0.4)]',
-              ].join(' ')}
+              className="absolute inset-0 rounded-[4px] bg-gradient-to-b from-surface-raised-from to-surface-raised-to shadow-[var(--shadow-raised)]"
             >
-              <div className="absolute inset-0 rounded-[inherit] shadow-[inset_0_1px_0_rgba(255,255,255,0.3)]" />
+              <div className="absolute inset-0 rounded-[inherit] shadow-[var(--shadow-inner-highlight)]" />
             </div>
             <div className="relative px-[12px] py-[7px]">
-              <span className="font-normal text-[16px] text-[#f4f4f4] [text-shadow:0_-1px_0_rgba(0,0,0,0.7)] whitespace-nowrap">
+              <span className="font-normal text-[16px] text-text-primary [text-shadow:var(--text-shadow-primary)] whitespace-nowrap">
                 {content}
               </span>
             </div>
             {/* Arrow */}
-            <div className={`absolute w-0 h-0 border-[6px] ${arrowPositionStyles[position]}`} />
+            <div
+              className={`absolute w-0 h-0 border-[6px] ${arrowPositionStyles[position]}`}
+              style={{ [arrowColorProp[position]]: 'var(--color-surface-raised-from)' }}
+            />
           </div>
         </div>
       )}

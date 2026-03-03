@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 @theme {
+  --color-bg: #222222;
   --color-accent: #96cc0c;
   --color-accent-glow: rgba(146, 211, 0, 0.8);
   --color-accent-focus: #e0f97d;
@@ -22,6 +23,86 @@
   --font-family-sans: 'Roboto', system-ui, sans-serif;
 }
 
+/* Shadow & effect variables (not Tailwind utilities — referenced via var()) */
+:root {
+  --shadow-raised: 0 3px 5px rgba(0,0,0,0.4);
+  --shadow-inner-highlight: inset 0 1px 0 rgba(255,255,255,0.3);
+  --shadow-inner-pressed: inset 0 2px 3px rgba(0,0,0,0.5);
+  --shadow-pressed-outer: 0 1px 0 rgba(255,255,255,0.3);
+  --shadow-focus: 0 0 4px 4px rgba(146,211,0,0.25), 0 0 0 2px #e0f97d, 0 3px 5px rgba(0,0,0,0.4);
+  --shadow-focus-glow: 0 0 4px 4px rgba(146,211,0,0.25), 0 0 0 2px #e0f97d;
+  --shadow-focus-ring: 0 0 4px #92d300;
+  --text-shadow-primary: 0 -1px 0 rgba(0,0,0,0.7);
+  --gradient-stroke-from: #253039;
+  --gradient-stroke-to: #151B21;
+  --icon-fill-from: #808181;
+  --icon-fill-to: #5B5A5B;
+  --icon-stroke-from: #1D262D;
+  --icon-stroke-to: #12161A;
+  --icon-pressed-color: #96CC0C;
+  --surface-disabled-from: rgba(65,67,68,0.5);
+  --surface-disabled-to: rgba(43,45,46,0.5);
+  --switch-track-off-bg: #303233;
+  --switch-track-off-shadow: inset 0 1px 5px rgba(0,0,0,0.8);
+  --switch-track-on-shadow: 0 0 8px rgba(146,211,0,0.8);
+  --switch-on-text-shadow: 0 0 8px rgba(146,211,0,0.8);
+  --handle-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  --checkbox-hover-from: #363839;
+  --checkbox-hover-to: #4a4b4c;
+  --accent-gradient-from: #96cc0c;
+  --accent-gradient-to: #96cc0c;
+  --slider-fill-highlight: inset 0 3px 0 rgba(255,255,255,0.8);
+}
+
+/* ── Light mode overrides ─────────────────────────────── */
+[data-theme="light"] {
+  --color-bg: #f0f0f0;
+  --color-accent: #0065ff;
+  --color-accent-glow: rgba(0, 101, 255, 0.4);
+  --color-accent-focus: #0065ff;
+  --color-accent-active: #0065ff;
+  --color-surface-raised-from: #ffffff;
+  --color-surface-raised-to: #d1d1d1;
+  --color-surface-hover-from: #f5f5f5;
+  --color-surface-hover-to: #c5c5c5;
+  --color-surface-pressed-from: #ffffff;
+  --color-surface-pressed-to: #ffffff;
+  --color-border-dark: rgba(255,255,255,0.6);
+  --color-border-dark-alt: rgba(255,255,255,0.6);
+  --color-text-primary: #777777;
+  --color-text-secondary: #999999;
+  --color-divider-shadow: #e0e0e0;
+  --color-divider-highlight: #ffffff;
+
+  --shadow-raised: 2px 8px 24px rgba(0,0,0,0.12);
+  --shadow-inner-highlight: inset 0 2px 0 white;
+  --shadow-inner-pressed: inset -3px -3px 7px white, inset 3px 3px 7px rgba(156,156,156,0.48);
+  --shadow-pressed-outer: none;
+  --shadow-focus: 0 0 0 2px #0065ff;
+  --shadow-focus-glow: 0 0 0 2px #0065ff;
+  --shadow-focus-ring: 0 0 4px #0065ff;
+  --text-shadow-primary: none;
+  --gradient-stroke-from: rgba(255,255,255,0.6);
+  --gradient-stroke-to: rgba(255,255,255,0.6);
+  --icon-fill-from: #999999;
+  --icon-fill-to: #777777;
+  --icon-stroke-from: rgba(255,255,255,0.6);
+  --icon-stroke-to: rgba(255,255,255,0.6);
+  --icon-pressed-color: #0065ff;
+  --surface-disabled-from: rgba(200,200,200,0.5);
+  --surface-disabled-to: rgba(180,180,180,0.5);
+  --switch-track-off-bg: #d0d0d0;
+  --switch-track-off-shadow: inset -3px -3px 7px white, inset 3px 3px 7px rgba(156,156,156,0.48);
+  --switch-track-on-shadow: 0 0 8px rgba(0,101,255,0.4);
+  --switch-on-text-shadow: 0 0 8px rgba(0,101,255,0.4);
+  --handle-shadow: 0 2px 4px rgba(0,0,0,0.15);
+  --checkbox-hover-from: #e8e8e8;
+  --checkbox-hover-to: #d0d0d0;
+  --accent-gradient-from: rgb(43,140,255);
+  --accent-gradient-to: rgb(3,84,206);
+  --slider-fill-highlight: inset 0 2px 0 rgba(255,255,255,0.6);
+}
+
 * {
   box-sizing: border-box;
 }
@@ -29,13 +110,21 @@
 body {
   margin: 0;
   font-family: var(--font-family-sans);
-  background-color: #222222;
+  background-color: var(--color-bg);
   color: var(--color-text-primary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Remove default focus outlines — components handle their own green glow */
+/* Remove default focus outlines — components handle their own focus styling */
 :focus-visible {
   outline: none;
+}
+
+/* Kill transitions during theme swap so it's instant */
+.no-transitions,
+.no-transitions *,
+.no-transitions *::before,
+.no-transitions *::after {
+  transition: none !important;
 }

@@ -1,6 +1,6 @@
 import { useId, type SVGProps } from 'react'
 
-type IconProps = SVGProps<SVGSVGElement>
+type IconProps = Omit<SVGProps<SVGSVGElement>, 'path'>
 
 // All icons are 24×24 filled shapes to match the Figma skeuomorphic style
 
@@ -12,9 +12,9 @@ export const iconState = {
   default: '',
   hover: '[&_svg]:[filter:brightness(1.3)]',
   pressed: [
-    '[&_.icon-fill]:[fill:#96CC0C]',
+    '[&_.icon-fill]:[fill:var(--icon-pressed-color)]',
     '[&_.icon-stroke]:[display:none]',
-    '[&_.icon-shape]:[fill:#96CC0C]',
+    '[&_.icon-shape]:[fill:var(--icon-pressed-color)]',
     '[&_.icon-shape]:[stroke:none]',
     '[&_g]:[filter:var(--skeuo-pressed-filter)]',
   ].join(' '),
@@ -56,15 +56,13 @@ function SkeuoIcon({ fillPath, strokePath, path, viewBox = '0 0 24 24', ...props
           <feBlend in2="bg" result="ds"/>
           <feBlend in="SourceGraphic" in2="ds"/>
         </filter>
-        {/* Pressed filter: drop shadow (X0 Y2 blur2 #000 30%) + inner shadow (X0 Y3 blur1 #FFF 70%) */}
+        {/* Pressed filter: drop shadow + inner shadow */}
         <filter id={`${id}-fp`} x={filterX} y={filterY} width={filterW} height={filterH} filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
-          {/* Drop shadow: Y=2, stdDeviation=1 (Figma blur 2), rgba(0,0,0,0.3) */}
           <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="sa"/>
           <feOffset in="sa" dy="2" result="dsOff"/>
           <feGaussianBlur in="dsOff" stdDeviation="1" result="dsBlur"/>
           <feColorMatrix in="dsBlur" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.3 0" result="ds"/>
           <feBlend in="SourceGraphic" in2="ds" result="withDrop"/>
-          {/* Inner shadow: invert alpha, offset Y=3, blur stdDeviation=0.5, clip to shape, white 70% */}
           <feComponentTransfer in="SourceAlpha" result="invAlpha">
             <feFuncA type="table" tableValues="1 0"/>
           </feComponentTransfer>
@@ -76,12 +74,12 @@ function SkeuoIcon({ fillPath, strokePath, path, viewBox = '0 0 24 24', ...props
           <feBlend in="innerShadow" in2="withDrop"/>
         </filter>
         <linearGradient id={`${id}-gf`} x1={gradX} y1={gradY1} x2={gradX} y2={gradY2} gradientUnits="userSpaceOnUse">
-          <stop stopColor="#808181"/>
-          <stop offset="1" stopColor="#5B5A5B"/>
+          <stop style={{ stopColor: 'var(--icon-fill-from)' }}/>
+          <stop offset="1" style={{ stopColor: 'var(--icon-fill-to)' }}/>
         </linearGradient>
         <linearGradient id={`${id}-gs`} x1={gradX} y1={gradY1} x2={gradX} y2={gradY2} gradientUnits="userSpaceOnUse">
-          <stop stopColor="#1D262D"/>
-          <stop offset="1" stopColor="#12161A"/>
+          <stop style={{ stopColor: 'var(--icon-stroke-from)' }}/>
+          <stop offset="1" style={{ stopColor: 'var(--icon-stroke-to)' }}/>
         </linearGradient>
       </defs>
       <g filter={`url(#${id}-f)`}>

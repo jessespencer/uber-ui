@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect, type ReactNode } from 'react'
 import { ChevronDownIcon, iconState } from './icons'
+import { gradientStroke } from './theme-utils'
 
 interface DropdownOption {
   label: string
@@ -13,13 +14,6 @@ interface DropdownProps {
   placeholder?: string
   className?: string
 }
-
-const gradientStroke = {
-  background: 'linear-gradient(to bottom, #253039, #151B21)',
-  mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
-  maskComposite: 'exclude',
-  WebkitMaskComposite: 'xor',
-} as const
 
 export function Dropdown({
   options,
@@ -82,16 +76,16 @@ export function Dropdown({
   const showStroke = !isFocus
 
   const triggerSurface = pressed
-    ? 'from-surface-pressed-from to-surface-pressed-to shadow-[0_1px_0_rgba(255,255,255,0.3)]'
+    ? 'from-surface-pressed-from to-surface-pressed-to shadow-[var(--shadow-pressed-outer)]'
     : isFocus
-      ? 'from-surface-raised-from to-surface-raised-to overflow-clip shadow-[0_0_4px_4px_rgba(146,211,0,0.25),0_0_0_2px_#e0f97d,0_3px_5px_rgba(0,0,0,0.4)]'
+      ? 'from-surface-raised-from to-surface-raised-to overflow-clip shadow-[var(--shadow-focus)]'
       : hovered
-        ? 'from-surface-hover-from to-surface-hover-to shadow-[0_3px_5px_rgba(0,0,0,0.4)]'
-        : 'from-surface-raised-from to-surface-raised-to shadow-[0_3px_5px_rgba(0,0,0,0.4)]'
+        ? 'from-surface-hover-from to-surface-hover-to shadow-[var(--shadow-raised)]'
+        : 'from-surface-raised-from to-surface-raised-to shadow-[var(--shadow-raised)]'
 
   const triggerInner = pressed
-    ? 'shadow-[inset_0_2px_3px_rgba(0,0,0,0.5)]'
-    : 'shadow-[inset_0_1px_0_rgba(255,255,255,0.3)]'
+    ? 'shadow-[var(--shadow-inner-pressed)]'
+    : 'shadow-[var(--shadow-inner-highlight)]'
 
   return (
     <div ref={ref} className={`relative inline-block ${className ?? ''}`} onKeyDown={handleKeyDown}>
@@ -116,7 +110,7 @@ export function Dropdown({
           <div className={`absolute inset-0 rounded-[inherit] pointer-events-none transition-shadow duration-100 ${triggerInner}`} />
         </div>
         <div className="relative flex items-center h-full px-[18px]">
-          <span className="font-normal text-[16px] text-text-primary [text-shadow:0_-1px_0_rgba(0,0,0,0.7)] whitespace-nowrap">
+          <span className="font-normal text-[16px] text-text-primary [text-shadow:var(--text-shadow-primary)] whitespace-nowrap">
             {selectedOption?.label ?? placeholder}
           </span>
           <span className={`absolute right-[8px] w-[24px] h-[24px] transition-all duration-100 ${pressed || open ? iconState.pressed : hovered ? iconState.hover : iconState.default}`}>
@@ -134,8 +128,8 @@ export function Dropdown({
               className="absolute -inset-px rounded-[5px] p-px pointer-events-none"
               style={gradientStroke}
             />
-            <div className="absolute inset-0 rounded-[4px] bg-gradient-to-b from-surface-raised-from to-surface-raised-to shadow-[0_3px_5px_rgba(0,0,0,0.4)]">
-              <div className="absolute inset-0 rounded-[inherit] pointer-events-none shadow-[inset_0_1px_0_rgba(255,255,255,0.3)]" />
+            <div className="absolute inset-0 rounded-[4px] bg-gradient-to-b from-surface-raised-from to-surface-raised-to shadow-[var(--shadow-raised)]">
+              <div className="absolute inset-0 rounded-[inherit] pointer-events-none shadow-[var(--shadow-inner-highlight)]" />
             </div>
 
             {/* Menu content */}
@@ -144,8 +138,8 @@ export function Dropdown({
                 <div key={option.label}>
                   {i > 0 && (
                     <div className="h-[2px] -mx-[18px] overflow-hidden">
-                      <div className="h-px bg-[#2a2b2d]" />
-                      <div className="h-px bg-[#626363]" />
+                      <div className="h-px bg-divider-shadow" />
+                      <div className="h-px bg-divider-highlight" />
                     </div>
                   )}
                   <button
@@ -164,7 +158,7 @@ export function Dropdown({
                     ].join(' ')}
                   >
                     {option.icon && <span className="w-[24px] h-[24px] shrink-0">{option.icon}</span>}
-                    <span className="flex-1 font-normal text-[16px] leading-[24px] [text-shadow:0_-1px_0_rgba(0,0,0,0.7)] whitespace-nowrap text-left">
+                    <span className="flex-1 font-normal text-[16px] leading-[24px] [text-shadow:var(--text-shadow-primary)] whitespace-nowrap text-left">
                       {option.label}
                     </span>
                     {option.label === value && (
