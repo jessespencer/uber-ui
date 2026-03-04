@@ -14,22 +14,22 @@ export function RockerToggle({ checked, onChange }: RockerToggleProps) {
 
   // Housing colors
   const housingCls = isLight
-    ? 'bg-gradient-to-b from-[#d8d8d8] to-[#e2e2e2] shadow-[2px_8px_24px_rgba(0,0,0,0.08),inset_-3px_-3px_7px_white,inset_3px_3px_7px_rgba(156,156,156,0.3)]'
+    ? 'bg-gradient-to-b from-[#d8d8d8] to-[#e0e0e0] shadow-[inset_0_3px_6px_rgba(0,0,0,0.22)]'
     : 'bg-gradient-to-b from-[#1a1c1e] to-[#252729] shadow-[0_1px_0_rgba(255,255,255,0.15),inset_0_1px_2px_rgba(0,0,0,0.5)]'
   const housingBorderCls = isLight
-    ? 'border border-white/60'
+    ? 'border border-[var(--color-border-dark)]'
     : 'border border-[#0d0f11]'
 
   // Raised half (inactive side)
   const raisedCls = (isHov: boolean) => isLight
     ? isHov
-      ? 'bg-gradient-to-b from-[#f5f5f5] to-[#c5c5c5]'
-      : 'bg-gradient-to-b from-[#ffffff] to-[#d1d1d1]'
+      ? 'bg-gradient-to-b from-surface-hover-from to-surface-hover-to'
+      : 'bg-gradient-to-b from-surface-raised-from to-surface-raised-to'
     : isHov
       ? 'bg-gradient-to-b from-[#505355] to-[#3e4042]'
       : 'bg-gradient-to-b from-[#454749] to-[#3a3c3e]'
   const raisedInner = isLight
-    ? 'shadow-[inset_0_2px_0_white]'
+    ? 'shadow-[var(--shadow-inner-highlight)]'
     : 'shadow-[inset_0_1px_0_rgba(255,255,255,0.12)]'
   const raisedEdge = isLight
     ? 'bg-gradient-to-b from-white/30 to-transparent'
@@ -37,25 +37,25 @@ export function RockerToggle({ checked, onChange }: RockerToggleProps) {
 
   // Recessed half (active side)
   const recessedCls = isLight
-    ? 'bg-[#e8e8e8]'
+    ? 'bg-gradient-to-b from-surface-pressed-from to-surface-pressed-to'
     : 'bg-gradient-to-b from-[#2a2c2e] to-[#353738]'
   const recessedInner = isLight
-    ? 'shadow-[inset_-3px_-3px_7px_white,inset_3px_3px_7px_rgba(156,156,156,0.3)]'
+    ? 'shadow-[inset_0_3px_5px_rgba(0,0,0,0.18)]'
     : 'shadow-[inset_0_3px_5px_rgba(0,0,0,0.6)]'
   const recessedInnerBottom = isLight
-    ? 'shadow-[inset_-3px_-3px_7px_white,inset_3px_3px_7px_rgba(156,156,156,0.3)]'
+    ? 'shadow-[inset_0_-3px_5px_rgba(0,0,0,0.18)]'
     : 'shadow-[inset_0_-3px_5px_rgba(0,0,0,0.6)]'
 
   // Symbol colors
-  const symbolBorder = isLight ? 'border-[#c0c0c0]' : 'border-[#1a1c1e]'
-  const symbolBorderOff = isLight ? 'border-[#d0d0d0]' : 'border-[#222425]'
+  const symbolBorder = isLight ? 'border-text-secondary' : 'border-[#1a1c1e]'
+  const symbolBorderOff = isLight ? 'border-text-secondary' : 'border-[#222425]'
   const barOff = isLight
-    ? 'bg-[#d0d0d0] shadow-[inset_-2px_-2px_4px_white,inset_2px_2px_4px_rgba(156,156,156,0.3)]'
+    ? 'bg-text-secondary shadow-[var(--shadow-inner-pressed)]'
     : 'bg-[#222425] shadow-[inset_0_1px_2px_rgba(0,0,0,0.5)]'
 
   // Divider
-  const dividerBg = isLight ? 'bg-[#d0d0d0]' : 'bg-[#1a1c1e]'
-  const dividerHighlight = isLight ? 'bg-white/30' : 'bg-[rgba(255,255,255,0.06)]'
+  const dividerBg = isLight ? 'bg-divider-shadow' : 'bg-[#1a1c1e]'
+  const dividerHighlight = isLight ? 'bg-divider-highlight' : 'bg-[rgba(255,255,255,0.06)]'
 
   return (
     <div
