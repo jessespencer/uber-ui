@@ -1,4 +1,4 @@
-# Neumorphic UI
+# Uber UI
 
 > A neumorphic, iOS-inspired component library — designed in Figma, built with React, TypeScript, and Tailwind CSS.
 
